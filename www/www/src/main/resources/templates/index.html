@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{layout::setFragment(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="container-sm">
+        <div class="mt-4 p-5 bg-secondary text-white rounded">
+            <h1>Spring Boot!</h1>
+            <p>Spring Boot</p>
+        </div>
+        </div>
+    </th:block>
+</th:block>
