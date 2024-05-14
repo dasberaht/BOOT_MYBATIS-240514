@@ -5,8 +5,9 @@
 
         <div class="container-sm">
             <h4>Board Detail</h4>
-<!--            <th:block th:each="bvo:${list}">-->
+            <th:block th:with="bvo=${bdto.bvo}">
             <form action="/board/modify" method="post" id="modForm">
+
                 <div class="my-3">
                     <label for="created">No : </label>
                     <input type="text" class="form-control" name="bno" th:value="${bvo.bno}" readonly>
@@ -32,6 +33,47 @@
                     <label for="content">Content : </label>
                     <textarea name="content" id="content" cols="50" rows="5" class="form-control" readonly>[[${bvo.content}]]</textarea>
                 </div>
+
+
+
+                <!-- upload file 출력영역 -->
+                <!--<c:set value="${bdto.flist }" var="flist" />-->
+                <div class="mb-3">
+                    <ul class="list-group">
+                        <!-- 파일 개수만큼 li를 반복하여 파일 표시 > 타입이 1인 경우만 표시 -->
+                        <!-- li >>> div >>> img >>> div >>> 파일이름, 작성일, span size -->
+                        <!--<c:forEach items="${flist }" var="fvo">-->
+                            <li class="list-group-item" th:each="fvo : ${bdto.flist}">
+                                <!--<c:choose>-->
+                                    <!--<c:when test="${fvo.fileType > 0 }">-->
+                                        <div th:if="${fvo.fileType > 0}">
+                                            <!-- src : /uplaod/는 servlet-context에서 설정한 경로 -->
+                                            <!-- ex. 파일명 : 467615d0-d63b-4397-a682-b50a6ea9c77b_testimage.jpg -->
+                                            <img th:src="@{|/upload/${fvo.saveDir }/${fvo.uuid}_th_${fvo.fileName}|}">
+                                        </div>
+                                    <!--</c:when>-->
+                                    <!--<c:otherwise>-->
+                                        <div th:unless="${fvo.fileType > 0}">
+<!--                                            <a href="@{|/upload/${fvo.saveDir }/${fvo.uuid}_${fvo.fileName}|}" download="${fvo.fileName}">-->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                                                    <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1M3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
+                                                </svg>
+<!--                                            </a>-->
+                                        </div>
+                                    <!--</c:otherwise>-->
+                                <!--</c:choose>-->
+                                <div>
+                                    <!-- 파일상세내용 : 파일이름, 작성일, 파일사이즈 -->
+                                    <div>[[${fvo.fileName }]]</div>
+                                    [[${fvo.regAt }]]
+                                    <span class="badge text-bg-warning">[[${fvo.fileSize }]] Byte</span>
+                                </div>
+                            </li>
+                        <!--</c:forEach>-->
+                    </ul>
+                </div>
+
+
                 <button type="button" id="listBtn" class="btn btn-outline-primary">게시글</button>
 
                 <!-- detail page 에서 modify 상태로 변경하기 위한 작업 -->
@@ -45,9 +87,7 @@
             <form action="/board/remove" method="post" id="delForm" style="display:none">
                 <input type="hidden" name="bno" th:value="${bvo.bno}">
             </form>
-
-
-<!--            </th:block>-->
+            </th:block>
         </div>
 
         <script th:src="@{/js/boardDetail.js}"></script>
