@@ -69,7 +69,7 @@ public class FileHandler {
 
     private boolean isImageFile(File file) throws IOException {
         String mimeType = new Tika().detect(file);
-        return mimeType.startsWith("image") ? true : false;
+        return mimeType.startsWith("static/image") ? true : false;
     }
 
 }

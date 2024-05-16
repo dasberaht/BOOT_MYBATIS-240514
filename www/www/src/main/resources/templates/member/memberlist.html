@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{layout::setFragment(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="container-sm">
+            <h4>MEMBERLISTPAGE</h4>
+
+            <!--<sec:authentication property="principal.uvo.authList" var="auths"/>-->
+
+            <div class="card-group">
+                <th:block th:each="mvo:${mlist }">
+                    <div class="card" style="width: 15rem;">
+                        <img src="/image/rock.png"  alt="No image">
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">[[${mvo.nickName }]]</li>
+                            <li class="list-group-item">[[${mvo.email }]]</li>
+                            <li class="list-group-item">[[${mvo.regAt }]]</li>
+                            <li class="list-group-item">[[${mvo.lastLogin }]]</li>
+
+                            <li class="list-group-item">
+                                <th:block th:each="authList:${mvo.authList }">
+                                    [[${authList.auth }]]
+                                </th:block>
+                            </li>
+                        </ul>
+                        <button type="button" class="btn btn-secondary btn-sm">ROLE</button>
+                    </div>
+                </th:block>
+
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="/"><button type="button" class="btn btn-secondary">홈으로</button></a>
+            </div>
+
+        </div>
+    </th:block>
+</th:block>

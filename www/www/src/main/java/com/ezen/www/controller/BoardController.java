@@ -33,7 +33,7 @@ public class BoardController {
     public String register(BoardVO bvo, @RequestParam(name = "files", required = false)MultipartFile[] files){
         log.info("> board register bvo {}", bvo);
         List<FileVO> flist = null;
-        if (files[0].getSize() > 0 || files != null) {
+        if(files[0].getSize() > 0 || files != null) {
             flist = fh.uploadFiles(files);
         }
         BoardDTO bdto = new BoardDTO(bvo, flist);

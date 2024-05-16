@@ -3,7 +3,6 @@
 
 --24.05.13
 --board table 생성
-
 create table board(
 bno bigint auto_increment,
 title varchar(200) not null,
@@ -16,7 +15,6 @@ primary key(bno));
 
 -24.05.14
 --file table 생성
-
 create table file(
 uuid varchar(256) not null,
 save_dir varchar(256) not null,
@@ -26,4 +24,24 @@ bno bigint not null,
 file_size bigint not null,
 reg_at datetime default now(),
 primary key(uuid));
+
+
+--24.05.16
+--member table
+create table member(
+email varchar(200) not null,
+pwd varchar(256) not null,
+nick_name varchar(100),
+reg_at datetime default now(),
+last_login datetime,
+primary key(email));
+
+
+--24.05.16
+--auth_member table(foreignkey 바로생성)
+create table auth_member(
+email varchar(200) not null,
+auth varchar(100) not null,
+foreign key(email) references member(email));
+
 
