@@ -27,7 +27,7 @@ public class BoardServiceImpl implements BoardService {
         log.info(">> board register Service in");
         int isOk = boardMapper.register(bdto.getBvo());
 
-        if(isOk>0 && bdto.getFlist().size() > 0){
+        if(isOk > 0 && bdto.getFlist().size() > 0){
             long bno = boardMapper.getBno();
             for(FileVO fvo : bdto.getFlist()){
                 fvo.setBno(bno);

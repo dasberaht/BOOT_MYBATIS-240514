@@ -60,10 +60,5 @@ document.addEventListener('change', (e)=>{
 
 
 
-document.getElementById('logoutLink').addEventListener('click', (e)=>{
-    // a tag의 href를 없애는 기능
-    e.preventDefault();
 
-    document.getElementById('logoutForm').submit();
-})
 

@@ -1,9 +1,12 @@
 package com.ezen.www.handler;
 
+import com.ezen.www.domain.CommentVO;
 import com.ezen.www.domain.PagingVO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,17 +18,27 @@ public class PagingHandler {
     private int totalCount;
     private PagingVO pgvo;
 
+    private int realEndPage;
+    /* Comment List 추가 */
+    private List<CommentVO> cmtList;
+
     public PagingHandler(PagingVO pgvo, int totalCount){
         this.pgvo=pgvo;
         this.totalCount=totalCount;
         this.endPage = (int)Math.ceil(pgvo.getPageNo()/(double)10)*10;
         this.startPage = endPage - 9;
-        int realEndPage = (int)Math.ceil(totalCount/(double)pgvo.getQty());
+        this.realEndPage = (int)Math.ceil(totalCount/(double)pgvo.getQty());
         if(realEndPage < endPage){
             this.endPage = realEndPage;
         }
         this.prev = this.startPage > 1;
         this.next = endPage < realEndPage;
+    }
+
+    /* Comment용 생성자 */
+    public PagingHandler(PagingVO pgvo, int totalCount, List<CommentVO> cmtList){
+        this(pgvo, totalCount);
+        this.cmtList = cmtList;
     }
 
 
